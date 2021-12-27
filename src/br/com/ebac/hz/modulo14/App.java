@@ -70,17 +70,26 @@ public class App {
 
     private static void cadastrar(String dados) {
         String[] dadosSeparados = dados.split(",");
-
         Cliente cliente = new Cliente(dadosSeparados[0],dadosSeparados[1],dadosSeparados[2],dadosSeparados[3],dadosSeparados[4],dadosSeparados[5],dadosSeparados[6]);
-        Boolean cadastrado = iClienteDAO.cadastrar(cliente);
-        if (cadastrado) {
+        if (dadosSeparados[0] == null){
             JOptionPane.showMessageDialog(null,
-                    "Cliente cadastrado com sucesso ",
-                    "Sucesso",JOptionPane.INFORMATION_MESSAGE);
+                    "Campo NOME obrigatório ",
+                    "ERRO",JOptionPane.INFORMATION_MESSAGE);
+        } else if (dadosSeparados[1] == null){
+            JOptionPane.showMessageDialog(null,
+                    "Campo CPF obrigatório ",
+                    "ERRO",JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(null,
-                    "Cliente já se encontra cadastrado",
-                    "Erro",JOptionPane.INFORMATION_MESSAGE);
+            Boolean cadastrado = iClienteDAO.cadastrar(cliente);
+            if (cadastrado) {
+                JOptionPane.showMessageDialog(null,
+                        "Cliente cadastrado com sucesso ",
+                        "Sucesso",JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null,
+                        "Cliente já se encontra cadastrado",
+                        "Erro",JOptionPane.INFORMATION_MESSAGE);
+            }
         }
     }
 
