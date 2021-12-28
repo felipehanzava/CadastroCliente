@@ -33,7 +33,7 @@ public class App {
         }
 
         while (isOpcaoValida(opcao)) {
-
+            
             if (isOpcaoSair(opcao)) {
                 sair();
             } else if (isCadastro(opcao)) {
@@ -71,15 +71,7 @@ public class App {
     private static void cadastrar(String dados) {
         String[] dadosSeparados = dados.split(",");
         Cliente cliente = new Cliente(dadosSeparados[0],dadosSeparados[1],dadosSeparados[2],dadosSeparados[3],dadosSeparados[4],dadosSeparados[5],dadosSeparados[6]);
-        if (dadosSeparados[0] == null){
-            JOptionPane.showMessageDialog(null,
-                    "Campo NOME obrigatório ",
-                    "ERRO",JOptionPane.INFORMATION_MESSAGE);
-        } else if (dadosSeparados[1] == null){
-            JOptionPane.showMessageDialog(null,
-                    "Campo CPF obrigatório ",
-                    "ERRO",JOptionPane.INFORMATION_MESSAGE);
-        } else {
+        if (!isCamposValidos(dadosSeparados[0],dadosSeparados[1],dadosSeparados[2],dadosSeparados[3],dadosSeparados[4],dadosSeparados[5],dadosSeparados[6])){
             Boolean cadastrado = iClienteDAO.cadastrar(cliente);
             if (cadastrado) {
                 JOptionPane.showMessageDialog(null,
@@ -91,7 +83,18 @@ public class App {
                         "Erro",JOptionPane.INFORMATION_MESSAGE);
             }
         }
+
     }
+
+    private static boolean isCamposValidos(String ...campos) {
+        for (String campo: campos){
+            if (campo == null|| "".equals(campo)){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
     private static void consultar(String dados) {
         Cliente cliente = iClienteDAO.consultar(Long.parseLong(dados));
