@@ -71,7 +71,7 @@ public class App {
     private static void cadastrar(String dados) {
         String[] dadosSeparados = dados.split(",");
         Cliente cliente = new Cliente(dadosSeparados[0],dadosSeparados[1],dadosSeparados[2],dadosSeparados[3],dadosSeparados[4],dadosSeparados[5],dadosSeparados[6]);
-        if (!isCamposValidos(dadosSeparados[0],dadosSeparados[1],dadosSeparados[2],dadosSeparados[3],dadosSeparados[4],dadosSeparados[5],dadosSeparados[6])){
+        if (isCamposValidos(dadosSeparados[0],dadosSeparados[1],dadosSeparados[2],dadosSeparados[3],dadosSeparados[4],dadosSeparados[5],dadosSeparados[6])){
             Boolean cadastrado = iClienteDAO.cadastrar(cliente);
             if (cadastrado) {
                 JOptionPane.showMessageDialog(null,
@@ -82,6 +82,10 @@ public class App {
                         "Cliente já se encontra cadastrado",
                         "Erro",JOptionPane.INFORMATION_MESSAGE);
             }
+        }else{
+            JOptionPane.showMessageDialog(null,
+                    "Erro: Falta algum campo ",
+                    "Erro",JOptionPane.INFORMATION_MESSAGE);
         }
 
     }
